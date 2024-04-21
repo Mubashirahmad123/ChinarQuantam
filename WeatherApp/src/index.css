@@ -1,0 +1,30 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+
+.current-weather-container{
+  padding: 10px !important;
+  font-family:monospace;
+  
+  
+  
+}
+
+.weather-details-container{
+
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.weather-forecast-container{
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.navbar{
+  background-color: #1f1f1f !important; /* This is the color you specified */
+  height: 44px;
+ 
+} 
+
