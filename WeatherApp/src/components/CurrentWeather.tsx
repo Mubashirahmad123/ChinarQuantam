@@ -17,7 +17,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data }) => {
       <div className="text-sm font-regular mb-2 ">Current Weather</div>
       <div className="divider mb-2 border-b border-black"></div>
       <div className="mb-4 flex items-center justify-center">
-        <img src={iconUrl} alt={data.description} className="mr-8 w-28 h-28 " />
+        <img src={iconUrl} alt={data.description} className="mr-6 w-24 h-24 " />
         <div>
           <h2 className="text-2xl font-bold ">{data.location}</h2>
           <div className="divider my-2 border-b border-black"></div>
