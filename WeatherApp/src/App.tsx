@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import Search from './components/Search';
 import CurrentWeather from './components/CurrentWeather';
 import WeatherDetails from './components/weatherDetails';
-// import AirQuality from './components/AirQuality';
 import WeatherForecast from './components/WeatherForecast';
 import NavBar from './components/Navbar';
-import './index.css'
+import './index.css';
 
 interface WeatherData {
   temperature: string;
@@ -27,9 +26,28 @@ interface WeatherData {
   iconCode: string;
 }
 
-// interface AirQualityData {
-//   aqi: number;
-// }
+interface Data {
+  main: {
+    temp: number;
+    humidity: number;
+    pressure: number;
+  };
+  weather: Array<{
+    description: string;
+    icon: string;
+  }>;
+  name: string;
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  visibility: number;
+  coord: {
+    lat: number;
+    lon: number;
+  };
+  uvIndex: string;
+}
 
 interface ForecastData {
   list: Array<{
@@ -47,7 +65,6 @@ interface ForecastData {
 
 const App: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  // const [airQualityData, setAirQualityData] = useState<AirQualityData | null>(null);
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
 
   const fetchWeatherData = async (city: string) => {
@@ -65,21 +82,18 @@ const App: React.FC = () => {
         throw new Error('Failed to fetch data');
       }
 
-      const currentWeatherData = await currentWeatherResponse.json();
-      const forecastData = await forecastResponse.json();
+      const currentWeatherData: Data = await currentWeatherResponse.json();
+      const forecastData: ForecastData = await forecastResponse.json();
 
-      const mappedWeatherData = mapWeatherData(currentWeatherData);
-      setWeatherData(mappedWeatherData);
-
-      const mappedForecastData = mapForecastData(forecastData);
-      setForecastData(mappedForecastData);
+      setWeatherData(mapWeatherData(currentWeatherData));
+      setForecastData(mapForecastData(forecastData));
     } catch (error) {
       console.error('Error fetching data:', error);
       // Handle the error and possibly show a user-friendly message
     }
   };
 
-  const mapWeatherData = (data: any): WeatherData => {
+  const mapWeatherData = (data: Data): WeatherData => {
     const { main, weather, name, wind, visibility, coord, uvIndex } = data;
 
     return {
@@ -103,18 +117,16 @@ const App: React.FC = () => {
     };
   };
 
-  const mapForecastData = (data: any): ForecastData => {
-    return {
-      list: data.list.map((item: any) => ({
-        main: {
-          temp: item.main.temp
-        },
-        weather: item.weather,
-        dt_txt: item.dt_txt,
-        iconCode: item.weather[0].icon
-      }))
-    };
-  };
+  const mapForecastData = (data: ForecastData): ForecastData => ({
+    list: data.list.map((item) => ({
+      main: {
+        temp: item.main.temp
+      },
+      weather: item.weather,
+      dt_txt: item.dt_txt,
+      iconCode: item.weather[0].icon
+    }))
+  });
 
   return (
     <div className="container mx-auto p-4">
@@ -124,7 +136,6 @@ const App: React.FC = () => {
         <>
           <CurrentWeather data={weatherData} />
           <WeatherDetails data={weatherData} />
-          {/* <AirQuality data={airQualityData} /> */}
           <WeatherForecast data={forecastData} />
         </>
       )}

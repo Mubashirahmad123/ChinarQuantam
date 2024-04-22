@@ -5,6 +5,7 @@ interface WeatherForDayProps {
     temperature: string;
     description: string;
     date: string;
+    time: string
     iconCode: string;
   };
 }
@@ -15,7 +16,8 @@ const WeatherForDay: React.FC<WeatherForDayProps> = ({ data }) => {
   return (
     <div className="weather-for-day-container mb-4  bg-white">
       <h4 className="text-md">{data.date}</h4>
-      <img src={iconUrl} alt={data.description} className="w-12 h-12" />
+      <h4 className="text-md">{data.time}</h4>
+      <img src={iconUrl} alt={data.description} className=""/>
       <p>Temperature: {data.temperature}°C</p>
       <p>Weather: {data.description}</p>
     </div>
