@@ -13,7 +13,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data }) => {
   const iconUrl = `http://openweathermap.org/img/w/${data.iconCode}.png`;
 
   return (
-    <div className="current-weather-container mx-auto mt-6 p-4 w-1/2  rounded-md  border border-black shadow-md   bg-white">
+    <div className="current-weather-container mx-auto mt-6 p-4 w-1/3  rounded-md  border border-black shadow-md   bg-white">
       <div className="text-sm font-regular mb-2 ">Current Weather</div>
       <div className="divider mb-2 border-b border-black"></div>
       <div className="mb-4 flex items-center justify-center">
